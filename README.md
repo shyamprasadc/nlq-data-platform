@@ -1,31 +1,118 @@
-# FastAPI Backend - Production-Ready Template
+# NLQ Data Platform
 
-A production-ready FastAPI backend with clean layered architecture, following service-based design patterns.
+> Production-grade NLQ platform with FastAPI-powered RAG pipeline and AWS data engineering infrastructure for natural language querying across multiple data sources
 
-## 🏗️ Architecture
+[![Python](https://img.shields.io/badge/Python-3.14+-blue.svg)](https://www.python.org/downloads/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.124+-green.svg)](https://fastapi.tiangolo.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-This project implements a **layered architecture** with clear separation of concerns:
+## 🎯 Overview
+
+The **NLQ Data Platform** is a production-ready system that enables natural language querying across multiple data sources. It combines:
+
+- **FastAPI Backend**: RESTful API with RAG (Retrieval-Augmented Generation) pipeline
+- **Vector Database**: Semantic search and document retrieval
+- **LLM Integration**: Natural language understanding and SQL generation
+- **AWS Data Infrastructure**: Scalable ETL pipelines with Glue, Athena, and PySpark
+- **Clean Architecture**: Layered design with service-based patterns
+
+### 🏗️ Platform Architecture
 
 ```
-API Layer (Routes) → Service Layer → Repository Layer → Database Layer
+┌─────────────────────────────────────────────────────────────┐
+│                    NLQ Data Platform                        │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌──────────────┐      ┌──────────────┐                   │
+│  │   Frontend   │──────│  FastAPI     │                   │
+│  │   (Future)   │      │   Backend    │                   │
+│  └──────────────┘      └──────┬───────┘                   │
+│                               │                            │
+│                    ┌──────────┴──────────┐                │
+│                    │                     │                 │
+│              ┌─────▼─────┐        ┌─────▼─────┐          │
+│              │    RAG    │        │  Vector   │          │
+│              │  Pipeline │        │ Database  │          │
+│              └─────┬─────┘        └───────────┘          │
+│                    │                                       │
+│              ┌─────▼─────┐                                │
+│              │    LLM    │                                │
+│              │  Service  │                                │
+│              └─────┬─────┘                                │
+│                    │                                       │
+│         ┌──────────┴──────────┐                          │
+│         │                     │                           │
+│    ┌────▼────┐          ┌────▼────┐                     │
+│    │  NLQ to │          │  Data   │                     │
+│    │   SQL   │          │ Sources │                     │
+│    └─────────┘          └─────────┘                     │
+│                                                           │
+├───────────────────────────────────────────────────────────┤
+│                  AWS Data Infrastructure                  │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌─────────┐ │
+│  │   S3     │  │  Glue    │  │  Athena  │  │ PySpark │ │
+│  │  (Data   │─▶│  (ETL)   │─▶│ (Query)  │  │ (Proc.) │ │
+│  │  Lake)   │  │          │  │          │  │         │ │
+│  └──────────┘  └──────────┘  └──────────┘  └─────────┘ │
+└───────────────────────────────────────────────────────────┘
 ```
 
-- **API Layer**: Thin controllers handling HTTP requests/responses
-- **Service Layer**: Business logic and coordination
-- **Repository Layer**: Data access and database queries
-- **Database Layer**: SQLAlchemy models and schema
+---
+
+## 📁 Repository Structure
+
+```
+nlq-data-platform/
+├── backend/                    # FastAPI Backend Service (Current)
+│   ├── app/
+│   │   ├── main.py            # Application entry point
+│   │   ├── core/              # Configuration & security
+│   │   ├── api/v1/            # API endpoints
+│   │   ├── schemas/           # Pydantic models
+│   │   ├── models/            # Database models
+│   │   ├── services/          # Business logic
+│   │   │   ├── llm_service.py      # LLM integration
+│   │   │   ├── ai_service.py       # RAG pipeline
+│   │   │   └── user_service.py     # User management
+│   │   ├── repositories/      # Data access layer
+│   │   ├── db/                # Database setup
+│   │   └── tests/             # Test suite
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   └── README.md
+│
+├── etl/                       # AWS ETL Pipelines (Coming Soon)
+│   ├── glue_jobs/            # AWS Glue ETL scripts
+│   ├── pyspark/              # PySpark transformations
+│   ├── athena_queries/       # Athena SQL queries
+│   └── infrastructure/       # Terraform/CloudFormation
+│
+├── vector-db/                 # Vector Database Setup (Coming Soon)
+│   ├── embeddings/           # Document embeddings
+│   ├── indexing/             # Vector indexing
+│   └── retrieval/            # Semantic search
+│
+└── docs/                      # Documentation
+    ├── architecture.md
+    ├── api-reference.md
+    └── deployment.md
+```
+
+---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - Python 3.14+
-- `uv` package manager (or `pip`)
+- Docker & Docker Compose
+- AWS Account (for ETL pipelines)
+- OpenAI/HuggingFace API key (for LLM integration)
 
-### Installation
+### Backend Service Setup
 
-1. **Clone and navigate to the project:**
+1. **Navigate to backend directory:**
 ```bash
-cd /Users/shyam/Desktop/Projects/Python/fastapi-backend
+cd backend
 ```
 
 2. **Install dependencies:**
@@ -34,275 +121,326 @@ uv sync
 ```
 
 3. **Configure environment:**
-The `.env` file is already set up with development defaults. Update `SECRET_KEY` for production.
-
-4. **Run the application:**
 ```bash
-uvicorn app.main:app --reload
+cp .env.example .env
+# Edit .env with your configuration
 ```
 
-Or use the provided script:
-```bash
-python main.py
-```
-
-The API will be available at: http://localhost:8000
-
-### Using Docker
-
-**Build and run with Docker Compose (recommended):**
+4. **Run with Docker Compose (Recommended):**
 ```bash
 docker-compose up -d
 ```
 
-This will start:
-- FastAPI application on port 8000
-- PostgreSQL database on port 5432
-- Redis (optional) on port 6379
-
-**Or build and run with Docker only:**
+Or run locally:
 ```bash
-# Build the image
-docker build -t fastapi-backend .
-
-# Run the container
-docker run -d -p 8000:8000 --name fastapi-app fastapi-backend
+uvicorn app.main:app --reload
 ```
 
-**View logs:**
-```bash
-docker-compose logs -f app
-```
-
-**Stop services:**
-```bash
-docker-compose down
-```
-
-**Stop and remove volumes:**
-```bash
-docker-compose down -v
-```
-
-
-## 📚 API Documentation
-
-Once running, visit:
-- **Swagger UI**: http://localhost:8000/docs
+5. **Access the API:**
+- **API**: http://localhost:8000
+- **Swagger Docs**: http://localhost:8000/docs
 - **ReDoc**: http://localhost:8000/redoc
+
+---
 
 ## 🔑 Key Features
 
-### ✅ Clean Architecture
-- Layered design with dependency injection
-- Repository pattern for data access
-- Service layer for business logic
-- Thin controllers
+### ✅ Backend Service (Current)
 
-### ✅ Authentication
+#### Clean Architecture
+- **Layered design**: Routes → Services → Repositories → Database
+- **Dependency injection** for testability
+- **Repository pattern** for data access
+- **Service layer** for business logic
+
+#### Authentication & Security
 - JWT token-based authentication
 - Password hashing with bcrypt
-- User management endpoints
+- Role-based access control (ready)
+- CORS configuration
 
-### ✅ AI/LLM Ready
-- Mock LLM service for development
-- Placeholder methods for OpenAI, HuggingFace, LangChain
+#### AI/LLM Integration
+- **RAG Pipeline**: Document retrieval and generation
+- **Vector Search**: Semantic document matching
+- **LLM Service**: OpenAI, HuggingFace, LangChain support
+- **NLQ to SQL**: Natural language to SQL conversion (ready)
+
+#### Database
+- SQLAlchemy ORM with PostgreSQL
+- Automatic migrations with Alembic
 - Document storage for AI interactions
+- User management
 
-### ✅ Database
-- SQLAlchemy ORM with SQLite (development)
-- Easy migration to PostgreSQL/MySQL
-- Automatic table creation
-- Timestamp tracking
+#### API Endpoints
 
-### ✅ Developer Experience
-- Pydantic for validation and documentation
-- Structured logging
-- Comprehensive error handling
-- Type hints throughout
-
-## 📁 Project Structure
-
-```
-app/
-├── main.py                    # Application entry point
-├── core/                      # Core configuration
-│   ├── config.py             # Settings management
-│   ├── security.py           # Auth & security
-│   └── logging.py            # Logging setup
-├── api/v1/                    # API endpoints (versioned)
-│   ├── endpoints/
-│   │   ├── auth.py           # Authentication
-│   │   ├── users.py          # User management
-│   │   └── ai.py             # AI/LLM endpoints
-│   └── api_router.py         # Router aggregation
-├── schemas/                   # Pydantic schemas
-├── models/                    # SQLAlchemy models
-├── services/                  # Business logic
-├── repositories/              # Data access
-├── db/                        # Database setup
-├── utils/                     # Utilities
-└── tests/                     # Test suite
-```
-
-## 🧪 Testing
-
-Run the test suite:
-```bash
-pytest app/tests/
-```
-
-Run with coverage:
-```bash
-pytest app/tests/ --cov=app
-```
-
-## 🔌 API Endpoints
-
-### Health Check
-- `GET /health` - Application health status
-
-### Authentication
-- `POST /api/v1/auth/login` - User login (returns JWT)
+**Authentication:**
+- `POST /api/v1/auth/login` - User authentication
 - `POST /api/v1/auth/logout` - User logout
 
-### Users
+**Users:**
 - `POST /api/v1/users/` - Create user
 - `GET /api/v1/users/{id}` - Get user
 - `PUT /api/v1/users/{id}` - Update user
 - `DELETE /api/v1/users/{id}` - Delete user
 
-### AI/LLM
-- `POST /api/v1/ai/generate` - Generate AI response
-- `GET /api/v1/ai/documents` - List documents
-- `POST /api/v1/ai/documents` - Create document
+**AI/NLQ:**
+- `POST /api/v1/ai/generate` - Generate AI response from NLQ
+- `GET /api/v1/ai/documents` - List indexed documents
+- `POST /api/v1/ai/documents` - Index new document
 - `GET /api/v1/ai/documents/{id}` - Get document
 - `PUT /api/v1/ai/documents/{id}` - Update document
 - `DELETE /api/v1/ai/documents/{id}` - Delete document
 
+### 🔄 ETL Pipeline (Coming Soon)
+
+- **AWS Glue**: Serverless ETL jobs
+- **PySpark**: Distributed data processing
+- **AWS Athena**: SQL queries on S3 data lake
+- **Data Catalog**: Metadata management
+- **Incremental Loading**: Efficient data updates
+
+### 🔍 Vector Database (Coming Soon)
+
+- **Embeddings**: Document and query vectorization
+- **Semantic Search**: Context-aware retrieval
+- **Indexing**: Efficient vector storage
+- **Similarity Matching**: Relevant document retrieval
+
+---
+
+## 🛠️ Technology Stack
+
+### Backend
+- **Framework**: FastAPI 0.124+
+- **ORM**: SQLAlchemy 2.0+
+- **Validation**: Pydantic 2.0+
+- **Authentication**: python-jose, passlib
+- **Database**: PostgreSQL (production), SQLite (development)
+
+### AI/ML
+- **LLM**: OpenAI GPT-4, HuggingFace Transformers
+- **Framework**: LangChain
+- **Vector DB**: Pinecone, Weaviate, or ChromaDB (planned)
+- **Embeddings**: OpenAI, HuggingFace
+
+### AWS Infrastructure
+- **Storage**: S3 (Data Lake)
+- **ETL**: AWS Glue, PySpark
+- **Query**: AWS Athena
+- **Orchestration**: AWS Step Functions
+- **Monitoring**: CloudWatch
+
+### DevOps
+- **Containerization**: Docker, Docker Compose
+- **CI/CD**: GitHub Actions (planned)
+- **IaC**: Terraform (planned)
+- **Monitoring**: Prometheus, Grafana (planned)
+
+---
+
+## 📖 Use Cases
+
+### 1. Natural Language Querying
+```
+User: "Show me all sales from last quarter where revenue exceeded $100k"
+       ↓
+NLQ Platform processes the query
+       ↓
+Generates SQL: SELECT * FROM sales WHERE date >= '2024-01-01' AND revenue > 100000
+       ↓
+Executes on AWS Athena
+       ↓
+Returns formatted results
+```
+
+### 2. Document-Based Q&A
+```
+User: "What were the key findings in the Q4 report?"
+       ↓
+RAG Pipeline retrieves relevant document sections
+       ↓
+LLM generates contextual answer
+       ↓
+Returns answer with source citations
+```
+
+### 3. Data Exploration
+```
+User: "What data sources are available?"
+       ↓
+Platform queries data catalog
+       ↓
+Returns available tables, schemas, and metadata
+```
+
+---
+
 ## 🔧 Configuration
 
-Key environment variables in `.env`:
+### Environment Variables
 
 ```bash
 # Database
-DATABASE_URL=sqlite:///./app.db
+DATABASE_URL=postgresql://user:password@localhost/nlq_platform
 
 # Security
 SECRET_KEY=your-secret-key-here
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 
+# LLM Configuration
+OPENAI_API_KEY=your-openai-key
+HUGGINGFACE_API_KEY=your-hf-key
+
+# Vector Database
+VECTOR_DB_URL=your-vector-db-url
+VECTOR_DB_API_KEY=your-vector-db-key
+
+# AWS Configuration
+AWS_REGION=us-east-1
+AWS_ACCESS_KEY_ID=your-access-key
+AWS_SECRET_ACCESS_KEY=your-secret-key
+S3_BUCKET=your-data-lake-bucket
+
 # CORS
-CORS_ORIGINS=http://localhost:3000,http://localhost:8000
+CORS_ORIGINS=http://localhost:3000,https://your-frontend.com
 
 # Environment
-ENVIRONMENT=development
+ENVIRONMENT=production
 ```
-
-## 🚢 Production Deployment
-
-### 1. Database Migration
-Switch to PostgreSQL:
-```bash
-# Update .env
-DATABASE_URL=postgresql://user:password@localhost/dbname
-
-# Set up Alembic
-alembic init alembic
-alembic revision --autogenerate -m "Initial migration"
-alembic upgrade head
-```
-
-### 2. LLM Integration
-Update `app/services/llm_service.py` with your preferred provider:
-
-**OpenAI:**
-```python
-from openai import OpenAI
-client = OpenAI(api_key=settings.OPENAI_API_KEY)
-```
-
-**HuggingFace:**
-```python
-from transformers import pipeline
-generator = pipeline('text-generation', model='gpt2')
-```
-
-### 3. Security
-- Generate a strong `SECRET_KEY`: `openssl rand -hex 32`
-- Enable HTTPS
-- Configure CORS for your production domain
-- Add rate limiting
-- Set up monitoring (Sentry, Datadog, etc.)
-
-### 4. Deployment Options
-- **Docker**: Create Dockerfile and docker-compose.yml
-- **Cloud**: Deploy to AWS, GCP, or Azure
-- **Platform**: Use Heroku, Railway, or Render
-
-## 📖 Example Usage
-
-### Create a user:
-```bash
-curl -X POST http://localhost:8000/api/v1/users/ \
-  -H "Content-Type: application/json" \
-  -d '{
-    "email": "user@example.com",
-    "password": "securepass123",
-    "full_name": "John Doe"
-  }'
-```
-
-### Login:
-```bash
-curl -X POST http://localhost:8000/api/v1/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{
-    "email": "user@example.com",
-    "password": "securepass123"
-  }'
-```
-
-### Generate AI response:
-```bash
-curl -X POST http://localhost:8000/api/v1/ai/generate \
-  -H "Content-Type: application/json" \
-  -d '{
-    "prompt": "Explain FastAPI in simple terms",
-    "max_tokens": 500,
-    "temperature": 0.7
-  }'
-```
-
-## 🛠️ Development
-
-### Adding a new endpoint:
-1. Create Pydantic schema in `app/schemas/`
-2. Create SQLAlchemy model in `app/models/` (if needed)
-3. Create repository in `app/repositories/`
-4. Create service in `app/services/`
-5. Create endpoint in `app/api/v1/endpoints/`
-6. Add router to `app/api/v1/api_router.py`
-
-### Code Style
-- Follow PEP 8
-- Use type hints
-- Add docstrings to functions
-- Keep routes thin (delegate to services)
-
-## 📝 License
-
-MIT License - feel free to use this template for your projects!
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow the existing code structure and patterns.
-
-## 📞 Support
-
-For issues or questions, please open an issue on the repository.
 
 ---
 
-**Built with ❤️ using FastAPI, SQLAlchemy, and Pydantic**
+## 🚢 Deployment
+
+### Docker Deployment
+
+```bash
+# Build and run with Docker Compose
+docker-compose up -d
+
+# View logs
+docker-compose logs -f app
+
+# Scale services
+docker-compose up -d --scale app=3
+```
+
+### AWS Deployment (Planned)
+
+- **ECS/Fargate**: Container orchestration
+- **RDS**: Managed PostgreSQL
+- **ElastiCache**: Redis for caching
+- **ALB**: Load balancing
+- **CloudFront**: CDN for static assets
+
+---
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+pytest backend/app/tests/
+
+# Run with coverage
+pytest backend/app/tests/ --cov=app
+
+# Run specific test file
+pytest backend/app/tests/test_users.py
+```
+
+---
+
+## 📊 Roadmap
+
+### Phase 1: Backend Service ✅ (Current)
+- [x] FastAPI application with clean architecture
+- [x] User authentication and management
+- [x] LLM service integration (mock)
+- [x] Document storage
+- [x] Docker containerization
+- [x] API documentation
+
+### Phase 2: LLM & RAG Pipeline 🔄 (In Progress)
+- [ ] OpenAI/HuggingFace integration
+- [ ] Vector database setup
+- [ ] Document embedding pipeline
+- [ ] Semantic search implementation
+- [ ] RAG pipeline optimization
+
+### Phase 3: NLQ to SQL 📋 (Planned)
+- [ ] SQL generation from natural language
+- [ ] Query validation and optimization
+- [ ] Multi-database support
+- [ ] Query result formatting
+- [ ] Query history and caching
+
+### Phase 4: AWS ETL Pipeline 📋 (Planned)
+- [ ] AWS Glue job development
+- [ ] PySpark transformations
+- [ ] Athena query optimization
+- [ ] Data catalog setup
+- [ ] Incremental data loading
+
+### Phase 5: Production Features 📋 (Planned)
+- [ ] Advanced monitoring and logging
+- [ ] Rate limiting and throttling
+- [ ] Advanced caching strategies
+- [ ] Multi-tenancy support
+- [ ] Admin dashboard
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these guidelines:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Development Guidelines
+- Follow PEP 8 style guide
+- Add type hints to all functions
+- Write comprehensive docstrings
+- Include unit tests for new features
+- Update documentation as needed
+
+---
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 📞 Support
+
+For issues, questions, or contributions:
+- **Issues**: [GitHub Issues](https://github.com/yourusername/nlq-data-platform/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/yourusername/nlq-data-platform/discussions)
+
+---
+
+## 🙏 Acknowledgments
+
+- **FastAPI**: For the excellent web framework
+- **LangChain**: For LLM orchestration tools
+- **AWS**: For scalable cloud infrastructure
+- **OpenAI**: For powerful language models
+
+---
+
+**Built with ❤️ for democratizing data access through natural language**
+
+---
+
+## 📚 Additional Documentation
+
+- [Backend Service Documentation](backend/README.md)
+- [Docker Deployment Guide](backend/DOCKER.md)
+- [API Reference](docs/api-reference.md) (Coming Soon)
+- [Architecture Overview](docs/architecture.md) (Coming Soon)
+- [ETL Pipeline Guide](docs/etl-pipeline.md) (Coming Soon)

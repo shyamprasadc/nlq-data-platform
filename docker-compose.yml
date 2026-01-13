@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: fastapi-backend
+    container_name: nlq-backend
     ports:
       - "8000:8000"
     environment:
@@ -29,7 +29,7 @@ services:
   # PostgreSQL Database
   db:
     image: postgres:16-alpine
-    container_name: fastapi-db
+    container_name: nlq-db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -50,7 +50,7 @@ services:
   # Redis (optional - for caching/sessions)
   redis:
     image: redis:7-alpine
-    container_name: fastapi-redis
+    container_name: nlq-redis
     ports:
       - "6379:6379"
     volumes:

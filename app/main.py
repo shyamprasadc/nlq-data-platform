@@ -41,8 +41,8 @@ async def lifespan(app: FastAPI):
 
 # Initialize FastAPI application
 app = FastAPI(
-    title=settings.APP_NAME,
-    description="Production-ready FastAPI backend with clean layered architecture",
+    title="NLQ Data Platform API",
+    description="Production-grade NLQ platform with FastAPI-powered RAG pipeline for natural language querying across multiple data sources",
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
@@ -90,7 +90,8 @@ def root():
         Welcome message and API documentation links
     """
     return {
-        "message": "Welcome to the FastAPI Backend",
+        "message": "Welcome to the NLQ Data Platform API",
+        "description": "Natural Language Query platform for querying data sources using natural language",
         "docs": "/docs",
         "redoc": "/redoc",
         "health": "/health",

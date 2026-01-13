@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     """
 
     # Application
-    APP_NAME: str = "FastAPI Backend"
+    APP_NAME: str = "NLQ Data Platform"
     ENVIRONMENT: str = "development"
     DEBUG: bool = True
 
@@ -30,11 +30,6 @@ class Settings(BaseSettings):
 
     # CORS
     CORS_ORIGINS: str = "http://localhost:3000,http://localhost:8000"
-
-    # ImageKit (existing configuration)
-    IMAGEKIT_PUBLIC_KEY: str = ""
-    IMAGEKIT_PRIVATE_KEY: str = ""
-    IMAGEKIT_URL: str = ""
 
     model_config = SettingsConfigDict(
         env_file=".env", env_file_encoding="utf-8", case_sensitive=True, extra="allow"

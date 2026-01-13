@@ -59,16 +59,16 @@ Excludes unnecessary files from build context:
 
 ```bash
 # Build the Docker image
-docker build -t fastapi-backend .
+docker build -t nlq-backend .
 
 # Run a single container
-docker run -d -p 8000:8000 --name fastapi-app fastapi-backend
+docker run -d -p 8000:8000 --name nlq-app nlq-backend
 
 # Run with environment variables
 docker run -d -p 8000:8000 \
   -e DATABASE_URL=postgresql://user:pass@host/db \
   -e SECRET_KEY=your-secret-key \
-  --name fastapi-app fastapi-backend
+  --name nlq-app nlq-backend
 ```
 
 ### Using Docker Compose
@@ -171,7 +171,7 @@ environment:
 
 **Option 3: Command line**
 ```bash
-docker run -e DATABASE_URL=postgresql://... -e SECRET_KEY=... fastapi-backend
+docker run -e DATABASE_URL=postgresql://... -e SECRET_KEY=... nlq-backend
 ```
 
 ---
@@ -182,13 +182,13 @@ docker run -e DATABASE_URL=postgresql://... -e SECRET_KEY=... fastapi-backend
 
 ```bash
 # Build with tag
-docker build -t fastapi-backend:1.0.0 .
+docker build -t nlq-backend:1.0.0 .
 
 # Tag for registry
-docker tag fastapi-backend:1.0.0 your-registry/fastapi-backend:1.0.0
+docker tag nlq-backend:1.0.0 your-registry/nlq-backend:1.0.0
 
 # Push to registry
-docker push your-registry/fastapi-backend:1.0.0
+docker push your-registry/nlq-backend:1.0.0
 ```
 
 ### 2. Update docker-compose.yml for Production
@@ -196,7 +196,7 @@ docker push your-registry/fastapi-backend:1.0.0
 ```yaml
 services:
   app:
-    image: your-registry/fastapi-backend:1.0.0
+    image: your-registry/nlq-backend:1.0.0
     environment:
       - DATABASE_URL=${DATABASE_URL}
       - SECRET_KEY=${SECRET_KEY}
@@ -221,7 +221,7 @@ export SECRET_KEY=$(vault read -field=value secret/jwt_key)
 
 ✅ **Scan for vulnerabilities**
 ```bash
-docker scan fastapi-backend
+docker scan nlq-backend
 ```
 
 ✅ **Use specific image tags** (not `latest`)
@@ -353,15 +353,15 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Build Docker image
-        run: docker build -t fastapi-backend .
+        run: docker build -t nlq-backend .
       
       - name: Run tests
-        run: docker run fastapi-backend pytest
+        run: docker run nlq-backend pytest
       
       - name: Push to registry
         run: |
-          docker tag fastapi-backend ${{ secrets.REGISTRY }}/fastapi-backend:${{ github.sha }}
-          docker push ${{ secrets.REGISTRY }}/fastapi-backend:${{ github.sha }}
+          docker tag nlq-backend ${{ secrets.REGISTRY }}/nlq-backend:${{ github.sha }}
+          docker push ${{ secrets.REGISTRY }}/nlq-backend:${{ github.sha }}
 ```
 
 ---

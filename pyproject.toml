@@ -1,14 +1,13 @@
 [project]
-name = "fastapi-backend"
+name = "nlq-data-platform"
 version = "0.1.0"
-description = "Add your description here"
+description = "Production-grade NLQ platform with FastAPI-powered RAG pipeline and AWS data engineering infrastructure"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "aiosqlite>=0.21.0",
     "fastapi>=0.124.2",
     "fastapi-users[sqlalchemy]>=15.0.1",
-    "imagekitio>=4.2.0",
     "uvicorn[standard]>=0.38.0",
     "sqlalchemy>=2.0.0",
     "pydantic>=2.0.0",
