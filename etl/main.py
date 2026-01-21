@@ -36,12 +36,12 @@ if etl_env.exists():
 elif root_env.exists():
     load_dotenv(root_env)
 
-from etl.spark.session import create_spark_session, stop_spark_session
-from etl.readers.mysql_reader import MySQLReader
-from etl.writers.s3_writer import S3Writer
-from etl.checkpoint.manager import CheckpointManager
-from etl.validation.validators import DataValidator
-from etl.utils.logger import setup_logger, TableLogger
+from etl.spark.session import create_spark_session, stop_spark_session  # noqa: E402
+from etl.readers.mysql_reader import MySQLReader  # noqa: E402
+from etl.writers.s3_writer import S3Writer  # noqa: E402
+from etl.checkpoint.manager import CheckpointManager  # noqa: E402
+from etl.validation.validators import DataValidator  # noqa: E402
+from etl.utils.logger import setup_logger, TableLogger  # noqa: E402
 
 
 def load_table_config() -> List[Dict[str, Any]]:

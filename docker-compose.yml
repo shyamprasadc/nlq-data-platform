@@ -5,7 +5,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: backend/Dockerfile
     container_name: nlq-backend
     ports:
       - "8000:8000"
@@ -21,7 +21,7 @@ services:
         condition: service_healthy
     volumes:
       # Mount code for development (comment out for production)
-      - ./app:/app/app
+      - ./backend:/app/backend
     restart: unless-stopped
     networks:
       - backend
@@ -63,6 +63,33 @@ services:
     restart: unless-stopped
     networks:
       - backend
+
+  # PySpark ETL Pipeline
+  etl:
+    build:
+      context: .
+      dockerfile: etl/Dockerfile
+    container_name: nlq-etl
+    environment:
+      - MYSQL_HOST=${MYSQL_HOST:-localhost}
+      - MYSQL_PORT=${MYSQL_PORT:-3306}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-retail_db}
+      - MYSQL_USER=${MYSQL_USER:-root}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-password}
+      - S3_BUCKET=${S3_BUCKET:-my-bucket}
+      - S3_PREFIX=${S3_PREFIX:-raw/retail_db}
+      - S3_CHECKPOINT_PREFIX=${S3_CHECKPOINT_PREFIX:-checkpoints/retail_db}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-}
+      - AWS_REGION=${AWS_REGION:-us-east-1}
+    volumes:
+      # Mount code for development
+      - ./etl:/app/etl
+    networks:
+      - backend
+    # Run once and exit (not a long-running service)
+    profiles:
+      - etl
 
 volumes:
   postgres_data:
