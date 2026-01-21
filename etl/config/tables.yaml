@@ -1,0 +1,51 @@
+# Table Metadata Configuration
+# Defines load strategies and partition schemes for each table
+
+tables:
+  # Orders table - Date-based incremental loading
+  - table_name: orders
+    load_type: date_incremental  # full | id_incremental | date_incremental
+    primary_key: order_id
+    incremental_column: order_date
+    partition_strategy: date  # Partition by year/month/day from order_date
+    description: "Customer orders with date-based incremental loading"
+
+  # Categories table - Full refresh (small dimension table)
+  - table_name: categories
+    load_type: full
+    primary_key: category_id
+    incremental_column: null
+    partition_strategy: load_date  # Partition by load execution date
+    description: "Product categories - full refresh on each load"
+
+  # Departments table - Full refresh (small dimension table)
+  - table_name: departments
+    load_type: full
+    primary_key: department_id
+    incremental_column: null
+    partition_strategy: load_date
+    description: "Departments - full refresh on each load"
+
+  # Customers table - ID-based incremental loading
+  - table_name: customers
+    load_type: id_incremental
+    primary_key: customer_id
+    incremental_column: customer_id
+    partition_strategy: load_date
+    description: "Customer information with ID-based incremental loading"
+
+  # Products table - ID-based incremental loading
+  - table_name: products
+    load_type: id_incremental
+    primary_key: product_id
+    incremental_column: product_id
+    partition_strategy: load_date
+    description: "Product catalog with ID-based incremental loading"
+
+  # Order Items table - ID-based incremental loading
+  - table_name: order_items
+    load_type: id_incremental
+    primary_key: order_item_id
+    incremental_column: order_item_id
+    partition_strategy: load_date
+    description: "Order line items with ID-based incremental loading"
