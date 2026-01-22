@@ -13,11 +13,11 @@ import os
 import sys
 from pathlib import Path
 
+import uvicorn
+
 # Ensure project root is in PYTHONPATH for uvicorn reload subprocess
 project_root = str(Path(__file__).parent.parent)
 os.environ["PYTHONPATH"] = project_root
-
-import uvicorn
 
 if __name__ == "__main__":
     os.chdir(project_root)  # Change to project root

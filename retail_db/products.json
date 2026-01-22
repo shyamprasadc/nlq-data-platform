@@ -1,0 +1,26 @@
+[
+	{
+		"product_id" : 1,
+		"product_category_id" : 2,
+		"product_name" : "Quest Q64 10 FT. x 10 FT. Slant Leg Instant U",
+		"product_description" : "",
+		"product_price" : 59.98,
+		"product_image" : "http://images.acmesports.sports/Quest+Q64+10+FT.+x+10+FT.+Slant+Leg+Instant+Up+Canopy"
+	},
+	{
+		"product_id" : 2,
+		"product_category_id" : 2,
+		"product_name" : "Under Armour Men's Highlight MC Football Clea",
+		"product_description" : "",
+		"product_price" : 129.99,
+		"product_image" : "http://images.acmesports.sports/Under+Armour+Men%27s+Highlight+MC+Football+Cleat"
+	},
+	{
+		"product_id" : 3,
+		"product_category_id" : 2,
+		"product_name" : "Under Armour Men's Renegade D Mid Football Cl",
+		"product_description" : "",
+		"product_price" : 89.99,
+		"product_image" : "http://images.acmesports.sports/Under+Armour+Men%27s+Renegade+D+Mid+Football+Cleat"
+	}
+]

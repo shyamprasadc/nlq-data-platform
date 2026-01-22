@@ -1,0 +1,14 @@
+[
+	{
+		"department_id" : 2,
+		"department_name" : "Fitness"
+	},
+	{
+		"department_id" : 3,
+		"department_name" : "Footwear"
+	},
+	{
+		"department_id" : 4,
+		"department_name" : "Apparel"
+	}
+]

@@ -1,0 +1,242 @@
+[
+	{
+		"TABLE_NAME" : "categories",
+		"COLUMN_NAME" : "category_id",
+		"DATA_TYPE" : "int",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "PRI",
+		"EXTRA" : "auto_increment"
+	},
+	{
+		"TABLE_NAME" : "categories",
+		"COLUMN_NAME" : "category_department_id",
+		"DATA_TYPE" : "int",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "categories",
+		"COLUMN_NAME" : "category_name",
+		"DATA_TYPE" : "varchar",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "customers",
+		"COLUMN_NAME" : "customer_id",
+		"DATA_TYPE" : "int",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "PRI",
+		"EXTRA" : "auto_increment"
+	},
+	{
+		"TABLE_NAME" : "customers",
+		"COLUMN_NAME" : "customer_fname",
+		"DATA_TYPE" : "varchar",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "customers",
+		"COLUMN_NAME" : "customer_lname",
+		"DATA_TYPE" : "varchar",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "customers",
+		"COLUMN_NAME" : "customer_email",
+		"DATA_TYPE" : "varchar",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "customers",
+		"COLUMN_NAME" : "customer_password",
+		"DATA_TYPE" : "varchar",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "customers",
+		"COLUMN_NAME" : "customer_street",
+		"DATA_TYPE" : "varchar",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "customers",
+		"COLUMN_NAME" : "customer_city",
+		"DATA_TYPE" : "varchar",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "customers",
+		"COLUMN_NAME" : "customer_state",
+		"DATA_TYPE" : "varchar",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "customers",
+		"COLUMN_NAME" : "customer_zipcode",
+		"DATA_TYPE" : "varchar",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "departments",
+		"COLUMN_NAME" : "department_id",
+		"DATA_TYPE" : "int",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "PRI",
+		"EXTRA" : "auto_increment"
+	},
+	{
+		"TABLE_NAME" : "departments",
+		"COLUMN_NAME" : "department_name",
+		"DATA_TYPE" : "varchar",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "order_items",
+		"COLUMN_NAME" : "order_item_id",
+		"DATA_TYPE" : "int",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "PRI",
+		"EXTRA" : "auto_increment"
+	},
+	{
+		"TABLE_NAME" : "order_items",
+		"COLUMN_NAME" : "order_item_order_id",
+		"DATA_TYPE" : "int",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "order_items",
+		"COLUMN_NAME" : "order_item_product_id",
+		"DATA_TYPE" : "int",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "order_items",
+		"COLUMN_NAME" : "order_item_quantity",
+		"DATA_TYPE" : "tinyint",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "order_items",
+		"COLUMN_NAME" : "order_item_subtotal",
+		"DATA_TYPE" : "float",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "order_items",
+		"COLUMN_NAME" : "order_item_product_price",
+		"DATA_TYPE" : "float",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "orders",
+		"COLUMN_NAME" : "order_id",
+		"DATA_TYPE" : "int",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "PRI",
+		"EXTRA" : "auto_increment"
+	},
+	{
+		"TABLE_NAME" : "orders",
+		"COLUMN_NAME" : "order_date",
+		"DATA_TYPE" : "datetime",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "orders",
+		"COLUMN_NAME" : "order_customer_id",
+		"DATA_TYPE" : "int",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "orders",
+		"COLUMN_NAME" : "order_status",
+		"DATA_TYPE" : "varchar",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "products",
+		"COLUMN_NAME" : "product_id",
+		"DATA_TYPE" : "int",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "PRI",
+		"EXTRA" : "auto_increment"
+	},
+	{
+		"TABLE_NAME" : "products",
+		"COLUMN_NAME" : "product_category_id",
+		"DATA_TYPE" : "int",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "products",
+		"COLUMN_NAME" : "product_name",
+		"DATA_TYPE" : "varchar",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "products",
+		"COLUMN_NAME" : "product_description",
+		"DATA_TYPE" : "varchar",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "products",
+		"COLUMN_NAME" : "product_price",
+		"DATA_TYPE" : "float",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	},
+	{
+		"TABLE_NAME" : "products",
+		"COLUMN_NAME" : "product_image",
+		"DATA_TYPE" : "varchar",
+		"IS_NULLABLE" : "NO",
+		"COLUMN_KEY" : "",
+		"EXTRA" : ""
+	}
+]

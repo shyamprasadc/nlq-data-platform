@@ -1,0 +1,35 @@
+[
+	{
+		"customer_id" : 1,
+		"customer_fname" : "Richard",
+		"customer_lname" : "Hernandez",
+		"customer_email" : "XXXXXXXXX",
+		"customer_password" : "XXXXXXXXX",
+		"customer_street" : "6303 Heather Plaza",
+		"customer_city" : "Brownsville",
+		"customer_state" : "TX",
+		"customer_zipcode" : "78521"
+	},
+	{
+		"customer_id" : 2,
+		"customer_fname" : "Mary",
+		"customer_lname" : "Barrett",
+		"customer_email" : "XXXXXXXXX",
+		"customer_password" : "XXXXXXXXX",
+		"customer_street" : "9526 Noble Embers Ridge",
+		"customer_city" : "Littleton",
+		"customer_state" : "CO",
+		"customer_zipcode" : "80126"
+	},
+	{
+		"customer_id" : 3,
+		"customer_fname" : "Ann",
+		"customer_lname" : "Smith",
+		"customer_email" : "XXXXXXXXX",
+		"customer_password" : "XXXXXXXXX",
+		"customer_street" : "3422 Blue Pioneer Bend",
+		"customer_city" : "Caguas",
+		"customer_state" : "PR",
+		"customer_zipcode" : "00725"
+	}
+]
